@@ -142,6 +142,10 @@
   .punch{ font-weight:600; font-size:19px; margin-top:14px; line-height:1.5; letter-spacing:-0.01em;}
   @media (max-width:900px){ .manifesto-row{ grid-template-columns:1fr;} .manifesto-col:first-child{ border-right:none; border-bottom:1px solid var(--border);} }
   .gap-diagram{ margin-top:48px;}
+  @media (max-width:700px){
+    .gap-diagram-viewport{ margin:48px -32px 0; padding:0 32px 12px; overflow-x:auto; scrollbar-width:thin; -webkit-overflow-scrolling:touch;}
+    .gap-diagram{ width:720px; max-width:none; margin-top:0;}
+  }
 
   /* STAGES — grid with hairlines */
   .stages{ margin-top:52px; display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); border-radius:12px; overflow:hidden;}
@@ -280,6 +284,7 @@
       </div>
     </div>
 
+    <div class="gap-diagram-viewport" role="region" aria-label="Scrollable production gap diagram" tabindex="0">
     <svg class="gap-diagram" viewBox="0 0 1000 350" width="100%" xmlns="http://www.w3.org/2000/svg" role="img">
       <title>The production gap, illustrated as two platforms joined by a bridge</title>
 
@@ -342,6 +347,7 @@
       <circle class="gap-dot" style="animation-delay:0s" cx="925" cy="268" r="1.5" fill="var(--ink)" opacity="0.15"/>
       <circle class="gap-dot" style="animation-delay:1.6s" cx="480" cy="268" r="2" fill="var(--ink)" opacity="0.2"/>
     </svg>
+    </div>
   </div>
 </section>
 
