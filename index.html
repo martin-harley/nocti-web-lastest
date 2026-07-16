@@ -110,6 +110,7 @@
   @media (min-width:900px){
     .hero{ min-height:100vh; display:flex; flex-direction:column; box-sizing:border-box;}
     .hero-inner{ flex:1 1 auto; display:flex; flex-direction:column; align-items:center; width:100%; padding-top:40px;}
+    .hero-copy{ flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%;}
   }
   .hero-inner{ position:relative; z-index:2; flex-shrink:0;}
   .hero h1{ color:#f7f8ff;}
@@ -151,7 +152,7 @@
     box-shadow:0 30px 70px rgba(0,0,0,0.12);
   }
   @media (min-width:900px){
-    .code-card{ margin-top:auto; width:100%;}
+    .code-card{ width:100%;}
   }
   .code-bar{ display:flex; gap:6px; padding:12px 16px; border-bottom:1px solid #1c1c1c;}
   .code-bar span{ width:9px; height:9px; border-radius:50%; background:#2a2a2a;}
@@ -301,13 +302,15 @@
     </div>
   </div>
   <div class="wrap hero-inner">
-    <span class="badge"><span class="ping"></span> <span data-i18n="hero-badge">First deployment starts with an audit</span></span>
-    <h1 data-i18n="hero-h1">Deployed AI for your operation</h1>
-    <p class="hero-sub" data-i18n="hero-sub">NoctiLabs takes AI agents from demo to production, inside your real workflows, on your existing stack.</p>
-    <p class="hero-neg" data-i18n="hero-neg">No migrations. No 18-month roadmaps.</p>
-    <div class="hero-cta">
-      <a href="/book-a-call" class="btn btn-primary" data-i18n="book-a-call">Book a call →</a>
-      <a href="#how" class="btn btn-outline" data-i18n="nav-how">How it works</a>
+    <div class="hero-copy">
+      <span class="badge"><span class="ping"></span> <span data-i18n="hero-badge">First deployment starts with an audit</span></span>
+      <h1 data-i18n="hero-h1">Deployed AI for your operation</h1>
+      <p class="hero-sub" data-i18n="hero-sub">NoctiLabs takes AI agents from demo to production, inside your real workflows, on your existing stack.</p>
+      <p class="hero-neg" data-i18n="hero-neg">No migrations. No 18-month roadmaps.</p>
+      <div class="hero-cta">
+        <a href="/book-a-call" class="btn btn-primary" data-i18n="book-a-call">Book a call →</a>
+        <a href="#how" class="btn btn-outline" data-i18n="nav-how">How it works</a>
+      </div>
     </div>
 
     <div class="code-card">
