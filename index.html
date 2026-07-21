@@ -77,7 +77,8 @@
   }
   .nav-brand{ display:flex; align-items:center; gap:9px; font-weight:700; font-size:14.5px; letter-spacing:-0.01em;}
   .nav-links{ display:flex; gap:26px; font-size:12.5px; letter-spacing:0.03em; color:var(--ink-secondary);}
-  .nav .btn-primary{ padding:9px 18px; font-size:13px;}
+  .nav-links a{ text-align:center;}
+  .nav .btn-primary{ padding:9px 18px; font-size:13px; justify-content:center;}
   .lang-toggle{ font-family:var(--font-mono); font-size:12px; font-weight:600; letter-spacing:0.04em; border:1px solid var(--border-strong); background:transparent; color:var(--ink); border-radius:999px; padding:7px 14px; cursor:pointer; transition:transform var(--duration-fast) var(--ease-out), border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;}
   .lang-toggle:active{ transform:scale(.97);}
   .nav-toggle{ display:none; width:32px; height:32px; border-radius:50%; border:1px solid var(--border-strong); background:transparent; align-items:center; justify-content:center; cursor:pointer; color:var(--ink); padding:0;}
@@ -219,7 +220,6 @@
   /* CTA */
   .cta{
     background-color:var(--bg); color:var(--ink); text-align:center; padding:72px 0;
-    background-image:repeating-radial-gradient(circle at 50% 140%, transparent 0, transparent 26px, rgba(0,0,0,0.1) 27px);
     border-top:1px solid var(--border);
   }
   .cta h2{ color:var(--ink); font-size:clamp(28px,4vw,42px);}
@@ -265,12 +265,12 @@
   <div class="nav">
     <div class="nav-brand">NoctiLabs</div>
     <div class="nav-links">
-      <a href="#how" data-i18n="nav-how">How it works</a>
-      <a href="#automate" data-i18n="nav-automate">What we automate</a>
+      <a href="#how" data-i18n="nav-how">How It Works</a>
+      <a href="#automate" data-i18n="nav-automate">What We Automate</a>
       <a href="/company" data-i18n="nav-company">Company</a>
       <a href="/blog" data-i18n="nav-blog">Blog</a>
     </div>
-    <a href="/book-a-call" class="btn btn-primary" data-i18n="book-a-call">Book a call →</a>
+    <a href="/book-a-call" class="btn btn-primary" data-i18n="book-a-call">Book A Call →</a>
     <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">EN</button>
     <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile-menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line class="nav-toggle-line nav-toggle-line-top" x1="4" y1="7" x2="20" y2="7"/><line class="nav-toggle-line nav-toggle-line-middle" x1="4" y1="12" x2="20" y2="12"/><line class="nav-toggle-line nav-toggle-line-bottom" x1="4" y1="17" x2="20" y2="17"/></svg>
@@ -278,11 +278,11 @@
   </div>
 </div>
 <nav class="nav-mobile-menu" id="nav-mobile-menu">
-  <a href="#how" data-i18n="nav-how">How it works</a>
-  <a href="#automate" data-i18n="nav-automate">What we automate</a>
+  <a href="#how" data-i18n="nav-how">How It Works</a>
+  <a href="#automate" data-i18n="nav-automate">What We Automate</a>
   <a href="/company" data-i18n="nav-company">Company</a>
   <a href="/blog" data-i18n="nav-blog">Blog</a>
-  <a href="/book-a-call" class="btn btn-primary" data-i18n="book-a-call">Book a call →</a>
+  <a href="/book-a-call" class="btn btn-primary" data-i18n="book-a-call">Book A Call →</a>
   <button class="lang-toggle" id="lang-toggle-mobile" type="button" aria-label="Switch language" style="margin-top:6px;">EN / ES</button>
 </nav>
 
@@ -581,11 +581,11 @@
 <script>
 (function(){
   var ES = {
-    "nav-how": "Cómo trabajamos",
-    "nav-automate": "Qué automatizamos",
+    "nav-how": "Cómo Trabajamos",
+    "nav-automate": "Qué Automatizamos",
     "nav-company": "Empresa",
     "nav-blog": "Blog",
-    "book-a-call": "Agendar una llamada →",
+    "book-a-call": "Agendar Una Llamada →",
     "hero-badge": "El primer despliegue empieza con una auditoría",
     "hero-h1": "IA desplegada en tu operación",
     "hero-sub": "NoctiLabs lleva agentes de IA de la demo a producción, dentro de tus flujos de trabajo reales, sobre tu stack existente.",
@@ -680,6 +680,27 @@
   }
 
   function toggle(){ apply(current === 'en' ? 'es' : 'en'); }
+
+  /* Reserve the width of the widest language so the nav doesn't resize on toggle */
+  function lockNavWidths(){
+    var els = document.querySelectorAll('.nav .nav-links a[data-i18n], .nav .btn-primary[data-i18n]');
+    els.forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if(!ES[key]) return;
+      el.style.minWidth = '';
+      var shown = el.innerHTML;
+      var w1 = el.getBoundingClientRect().width;
+      el.innerHTML = current === 'es' ? (el.getAttribute('data-en-cache') || shown) : ES[key];
+      var w2 = el.getBoundingClientRect().width;
+      el.innerHTML = shown;
+      if(!w1 && !w2) return;
+      el.style.minWidth = Math.ceil(Math.max(w1, w2)) + 'px';
+    });
+  }
+  lockNavWidths();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(lockNavWidths);
+  var desktopMq = window.matchMedia('(min-width: 821px)');
+  if(desktopMq.addEventListener) desktopMq.addEventListener('change', function(e){ if(e.matches) lockNavWidths(); });
 
   var t1 = document.getElementById('lang-toggle');
   var t2 = document.getElementById('lang-toggle-mobile');
