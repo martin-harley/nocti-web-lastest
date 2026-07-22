@@ -672,6 +672,7 @@
     });
     document.documentElement.setAttribute('lang', lang);
     current = lang;
+    try{ localStorage.setItem('nocti-lang', lang); }catch(e){}
     var label = lang === 'es' ? 'ES' : 'EN';
     var btn1 = document.getElementById('lang-toggle');
     var btn2 = document.getElementById('lang-toggle-mobile');
@@ -701,6 +702,10 @@
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(lockNavWidths);
   var desktopMq = window.matchMedia('(min-width: 821px)');
   if(desktopMq.addEventListener) desktopMq.addEventListener('change', function(e){ if(e.matches) lockNavWidths(); });
+
+  var saved = null;
+  try{ saved = localStorage.getItem('nocti-lang'); }catch(e){}
+  if(saved === 'es') apply('es');
 
   var t1 = document.getElementById('lang-toggle');
   var t2 = document.getElementById('lang-toggle-mobile');
